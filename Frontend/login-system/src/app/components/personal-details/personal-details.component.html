@@ -1,0 +1,68 @@
+@if (this.errorMessage) {
+  <p class="text-danger">{{this.errorMessage}}></p>
+}
+<div>
+  <p><b> Name: </b> {{this.user?.firstname}} </p>
+  <p><b> Last Name: </b> {{this.user?.lastname}} </p>
+  <p><b> Country: </b> {{this.user?.country}} </p>
+  @if (this.userLoginOn && !this.editMode) {
+    <button class="btn btn-primary" (click)="this.editMode=true">Edit</button>
+  }
+
+  @if (this.userLoginOn && this.editMode) {
+    <form [formGroup]="registerForm" >
+      <div class="form-group row">
+          <label for="inputFirstName" class="col-sm-1 col-form-label">First Name</label>
+          <div class="col-sm-11">
+          <input type="text" formControlName="firstname" class="form-control" id="inputFirstName">
+
+              @if (firstname.invalid && (firstname.dirty || firstname.touched)) {
+                <div class="text-danger">
+                    @if (firstname.errors?.['required']) {
+                      <div >
+                          The name is required
+                      </div>
+                    }
+                </div>
+              }
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="inputLasttName" class="col-sm-1 col-form-label">Last Name</label>
+          <div class="col-sm-11">
+          <input type="text" formControlName="lastname" class="form-control" id="inputLasttName">
+
+              @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+                <div class="text-danger">
+                    @if (lastname.errors?.['required']) {
+                      <div >
+                          The last name is required
+                      </div>
+                    }
+                </div>
+              }
+      </div>
+      </div>
+      <div class="form-group row border-bottom pb-3" >
+          <label for="inputCountry" class="col-sm-1 col-form-label">Country</label>
+          <div class="col-sm-11">
+          <input type="text" formControlName="country" class="form-control" id="inputCountry" >
+
+              @if (country.invalid && (country.dirty || country.touched)) {
+                <div class="text-danger">
+                    @if (country.errors?.['required']) {
+                      <div >
+                          The country is required
+                      </div>
+                    }
+                </div>
+              }
+      </div>
+      </div>
+      <button type="submit" (click)="savePersonalDetailsData()"  class="btn btn-dark mt-3">Save</button>
+      <a class="btn btn-danger mt-3" (click)="editMode=false">Cancel</a>
+    </form>
+  }
+
+
+</div>
